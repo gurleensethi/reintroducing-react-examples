@@ -11,7 +11,7 @@ export const ContextTypeApp: FunctionComponent = (props) => {
       <UserProvider>
         <BankWithContextType />
       </UserProvider>
-      <br />
+      <hr />
     </div>
   );
 };
