@@ -6,7 +6,7 @@ import { UserConsumer } from "./UserProvider";
 export const Home: FunctionComponent = (props) => {
   return (
     <div>
-      <h1>Very Real Bank Account</h1>
+      <h2>Very Real Bank Account</h2>
       <UserConsumer>
         {(state) => {
           return state.isLoggedIn ? <AccountDetails /> : <Login />;
