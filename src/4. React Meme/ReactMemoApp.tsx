@@ -8,7 +8,7 @@ export const ReactMemoApp: FunctionComponent = React.memo((props) => {
       </h1>
       <p>
         This cmoponent is wrapped in{" "}
-        <pre
+        <code
           style={{
             display: "inline-block",
             backgroundColor: "lightgrey",
@@ -17,7 +17,7 @@ export const ReactMemoApp: FunctionComponent = React.memo((props) => {
           }}
         >
           React.memo({"<Component />"})
-        </pre>
+        </code>
       </p>
       <hr />
     </div>
