@@ -95,7 +95,38 @@ const Body: FunctionComponent<React.HTMLAttributes<HTMLDivElement>> = ({
   );
 };
 
+const useExpanded = () => {
+  const [expanded, setExpanded] = React.useState(false);
+
+  const toggle = React.useCallback(
+    () => setExpanded((prevState) => !prevState),
+    []
+  );
+
+  const value = React.useMemo(() => ({ expanded, toggle }), [expanded, toggle]);
+
+  return value;
+};
+
+const useEffectAfterMount = (cb: any, deps: any[]) => {
+  const isMounted = React.useRef(true);
+
+  React.useEffect(() => {
+    if (!isMounted.current) {
+      return cb();
+    }
+    isMounted.current = false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+};
+
 export const CompoundComponents: FunctionComponent = (props) => {
+  const { expanded, toggle } = useExpanded();
+
+  useEffectAfterMount(() => {
+    console.log("xClickx");
+  }, [expanded]);
+
   return (
     <div>
       <ExpandableComponent shouldExpand={true}>
@@ -140,6 +171,10 @@ export const CompoundComponents: FunctionComponent = (props) => {
           </p>
         </Body>
       </ExpandableComponent>
+      <div>
+        <button onClick={toggle}>Click for Awesomeness</button>
+        {expanded && <div>{"x".repeat(50)}</div>}
+      </div>
     </div>
   );
 };
