@@ -103,7 +103,19 @@ const useExpanded = () => {
     []
   );
 
-  const value = React.useMemo(() => ({ expanded, toggle }), [expanded, toggle]);
+  const togglerProps = React.useMemo(
+    () => ({
+      onClick: toggle,
+      "aria-expanded": expanded,
+    }),
+    [toggle, expanded]
+  );
+
+  const value = React.useMemo(() => ({ expanded, toggle, togglerProps }), [
+    expanded,
+    toggle,
+    togglerProps,
+  ]);
 
   return value;
 };
@@ -121,7 +133,7 @@ const useEffectAfterMount = (cb: any, deps: any[]) => {
 };
 
 export const CompoundComponents: FunctionComponent = (props) => {
-  const { expanded, toggle } = useExpanded();
+  const { expanded, togglerProps } = useExpanded();
 
   useEffectAfterMount(() => {
     console.log("xClickx");
@@ -172,7 +184,7 @@ export const CompoundComponents: FunctionComponent = (props) => {
         </Body>
       </ExpandableComponent>
       <div>
-        <button onClick={toggle}>Click for Awesomeness</button>
+        <button {...togglerProps}>Click for Awesomeness</button>
         {expanded && <div>{"x".repeat(50)}</div>}
       </div>
     </div>
